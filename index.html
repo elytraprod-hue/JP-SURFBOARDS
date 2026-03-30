@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JP Surfboards | It comes in waves</title>
+    <meta name="description" content="Pranchas de Surf de alta performance. Shape by Johnny.">
+    
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="selection:bg-black selection:text-white bg-zinc-50">
+
+    <header class="fixed w-full top-0 z-50 bg-transparent text-white mix-blend-difference hover:bg-black/90 hover:mix-blend-normal transition-all duration-300 group" id="mainHeader">
+        <nav class="max-w-screen-2xl mx-auto px-6 py-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-4 text-2xl font-bold tracking-tighter uppercase whitespace-nowrap">
+                <img src="./assets/images/logo.png" alt="Logo" class="w-8 h-8 invert group-hover:invert-0 filter transition-all hidden" onerror="this.style.display='none'">
+                <span>JP Surfboards</span>
+            </a>
+            <div class="hidden md:flex gap-8 text-xs font-semibold tracking-widest uppercase">
+                <a href="modelos.html" class="cursor-pointer hover:opacity-50 transition-opacity">Coleção</a>
+                <a href="#galeria" class="cursor-pointer hover:opacity-50 transition-opacity">Visuals</a>
+            </div>
+            <button class="md:hidden text-2xl">☰</button>
+        </nav>
+    </header>
+
+    <section class="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-black text-white">
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-70 z-10 pointer-events-none grayscale brightness-75 bg-zinc-900">
+            <source src="./assets/videos/BG%20Home%20page.mkv" type="video/webm">
+            <source src="./assets/videos/BG%20Home%20page.mkv" type="video/mp4">    
+        </video>
+        
+        <div class="z-20 text-center px-4 w-full mt-24 relative" id="hero-content">
+            <h1 class="text-7xl md:text-[11rem] font-bold tracking-tighter uppercase mb-4 leading-[0.80] opacity-0 translate-y-[100px]">
+                It comes<br>in waves
+            </h1>
+            <p class="text-xl font-light mb-16 tracking-widest opacity-0 uppercase drop-shadow-md">Shape by Johnny.</p>
+            <a href="modelos.html" class="opacity-0 bg-white inline-block text-black px-12 py-5 font-bold uppercase tracking-widest text-xs hover:bg-zinc-200 transition-colors border border-transparent cursor-pointer">
+                Explorar Coleção
+            </a>
+        </div>
+    </section>
+
+    <!-- Partial Coleção Modulada via main.js card builder -->
+    <section id="modelos" class="py-32 px-6 max-w-screen-2xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 px-4">
+            <div>
+                <h2 class="text-5xl md:text-7xl font-bold tracking-tighter uppercase mb-2">Vitrine</h2>
+                <p class="text-zinc-500 font-light text-xl tracking-wide">Os nossos clássicos testados ao limite.</p>
+            </div>
+            <a href="modelos.html" class="hidden md:block uppercase tracking-widest text-xs font-bold border-b border-black pb-1 hover:opacity-50 transition mt-6 md:mt-0">Ver Catálogo Completo</a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4" id="productsGrid"></div>
+    </section>
+
+    <!-- Banner O Shaper Fixo -->
+    <section class="bg-black text-white py-32 px-6">
+        <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2 aspect-[4/5] bg-zinc-900 flex items-center justify-center overflow-hidden relative group border border-zinc-800">
+                <img src="./assets/images/shaper-johnny.jpg" loading="lazy" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 transition-opacity duration-500" onerror="this.src='./assets/images/placeholder.jpg'">
+            </div>
+            <div class="w-full md:w-1/2 space-y-8">
+                <h2 class="text-5xl md:text-7xl font-bold tracking-tighter uppercase leading-[0.9]">O Shaper</h2>
+                <p class="text-xl font-light leading-relaxed opacity-80 text-zinc-400">Modelos meticulosamente concebidos para alta performance e prazer nas ondas, enraizados no Rio Tavares.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="./js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+             const h1 = document.querySelector("#hero-content h1");
+             const p = document.querySelector("#hero-content p");
+             const btn = document.querySelector("#hero-content a");
+             if(h1) gsap.to(h1, { y: 0, opacity: 1, duration: 1.5, ease: "power4.out", delay: 0.1 });
+             if(p) gsap.to(p, { opacity: 1, duration: 1, ease: "power2.out", delay: 0.5 });
+             if(btn) gsap.to(btn, { opacity: 1, duration: 1, ease: "power2.out", delay: 0.8 });
+             
+             // Usa o helper isolado de vitrine para popular top 4 model cards com Padrão Dims
+             document.getElementById('productsGrid').innerHTML = productsLocalDB.slice(0, 4).map(p => renderProductCard(p)).join('');
+        });
+    </script>
+</body>
+</html>

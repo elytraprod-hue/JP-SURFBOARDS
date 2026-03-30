@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Prancha | JP Surfboards</title>
+    <!-- Tailwind CSS v4 CDN e Custom CSS Modular -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="selection:bg-black selection:text-white bg-white">
+
+    <!-- Header (Light Theme) -->
+    <header class="fixed w-full top-0 z-50 transition-all duration-300 group" id="mainHeader" data-theme="light">
+        <nav class="max-w-screen-2xl mx-auto px-6 py-6 flex justify-between items-center text-black">
+            <a href="index.html" class="flex items-center gap-4 text-2xl font-bold tracking-tighter uppercase whitespace-nowrap">
+                <img src="./assets/images/logo.png" alt="Logo" class="w-8 h-8" onerror="this.style.display='none'">
+                <span>JP Surfboards</span>
+            </a>
+            <div class="hidden md:flex gap-8 text-xs font-semibold tracking-widest uppercase">
+                <a href="index.html" class="hover:opacity-50 transition-opacity">Home</a>
+                <a href="modelos.html" class="opacity-50 border-b border-black pb-1">Coleção</a>
+            </div>
+            <button class="md:hidden text-2xl">☰</button>
+        </nav>
+    </header>
+
+    <div class="pt-32 pb-32 px-6 max-w-screen-xl mx-auto flex flex-col md:flex-row gap-16 min-h-screen" id="detailContainer">
+       <!-- Coluna 1: Galeria (Puxando a slug-model.jpg) -->
+       <div class="w-full md:w-1/2" id="galleryCol">
+            <!-- Puxado via JS Baseado no Modelo -->
+       </div>
+       
+       <!-- Coluna 2: Detalhamento Técnico e Escolha do Fluxo da Encomenda -->
+       <div class="w-full md:w-1/2 flex flex-col gap-8" id="infoCol">
+            <!-- Formulario e Specs renderizados via Vanilla JS -->
+       </div>
+    </div>
+
+    <script src="./js/main.js"></script>
+    <script>
+       document.addEventListener("DOMContentLoaded", () => {
+           // Obter Query String
+           const params = new URLSearchParams(window.location.search);
+           const modelId = params.get('model');
+           if(!modelId) window.location.href = 'modelos.html';
+           
+           const prancha = productsLocalDB.find(p => p.id === modelId);
+           if(!prancha) window.location.href = 'modelos.html';
+
+           document.title = `Detalhes: ${prancha.name} | JP Surfboards`;
+           
+           // 1. Injeção da Imagem "Model" oficial requerida (.modelImage) 
+           document.getElementById('galleryCol').innerHTML = `
+                <div class="w-full aspect-[3/4] bg-zinc-50 md:sticky md:top-32 relative group border border-zinc-200 overflow-hidden">
+                    <img 
+                        src="${prancha.modelImage}" 
+                        alt="Galeria do modelo ${prancha.name}" 
+                        class="w-full h-full object-cover grayscale-0 group-hover:scale-[1.03] transition duration-700" 
+                        onerror="this.src='./assets/images/placeholder.jpg'"
+                    >
+                </div>
+           `;
+
+           // 2. Injeção da Vitrine de Specs e a nova Bifurcação (Padrão vs Custom)
+           document.getElementById('infoCol').innerHTML = `
+                <!-- Cabecalho Descritivo -->
+                <div>
+                    <h1 class="text-5xl md:text-7xl font-bold tracking-tighter uppercase mb-2">${prancha.name}</h1>
+                    <span class="text-[11px] tracking-widest uppercase font-bold text-zinc-500 border border-zinc-200 px-4 py-2 inline-block bg-zinc-50 mb-6">${prancha.type}</span>
+                    <p class="text-lg font-light text-zinc-600 leading-relaxed border-b border-zinc-100 pb-8">${prancha.desc}</p>
+                </div>
+                
+                <!-- Specs Fisicas Base / Dims Restritas -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm border-b border-zinc-100 pb-8">
+                    <div>
+                        <h4 class="font-bold uppercase tracking-widest mb-2 text-[10px] text-zinc-400">Sugestão de Uso</h4>
+                        <p class="text-zinc-800 leading-relaxed">${prancha.specs}</p>
+                        <span class="block mt-2 text-xs italic opacity-50">${prancha.indication}</span>
+                    </div>
+                    <div>
+                        <!-- Referência Direta do novo campo 'baseDims' -->
+                        <h4 class="font-bold uppercase tracking-widest mb-2 text-[10px] text-zinc-400">Dimensões Padrão</h4>
+                        <p class="text-zinc-800 leading-relaxed font-semibold">${prancha.baseDims}</p>
+                    </div>
+                </div>
+
+                <!-- Nova UX: ESCOLHA DO TIPO DE COMPRA -->
+                <div class="pt-4">
+                    <h3 class="text-xl font-bold uppercase tracking-tighter mb-6 text-black">Iniciar Encomenda</h3>
+                    <p class="text-xs text-zinc-500 mb-8 leading-relaxed">Selecione o fluxo da sua encomenda abaixo. O modelo padronizado te enviará direto ao WhatsApp oficial agilizando seu pedido, enquanto o sob medida abrirá um campo de estruturação avançada para o shaper.</p>
+                    
+                    <div class="flex flex-col gap-4 mb-8">
+                        <button onclick="dispatchStandardWhatsapp()" class="w-full bg-black text-white hover:bg-zinc-800 border border-black transition-colors py-4 font-bold tracking-widest uppercase text-[11px] cursor-pointer">
+                            Quero esse modêlo padrão
+                        </button>
+                        
+                        <button onclick="toggleFormCustom()" class="w-full bg-transparent text-black hover:bg-zinc-50 border border-black/20 transition-colors py-4 font-bold tracking-widest uppercase text-[11px] cursor-pointer" id="btnCustomToggle">
+                            Fazer sob medida
+                        </button>
+                    </div>
+
+                    <!-- Formulário "Sob Medida" (Escondido por Padrão) -->
+                    <div id="customOrderFormWrapper" class="hidden opacity-0 transition-opacity duration-500 bg-zinc-50 p-6 md:p-8 border border-zinc-200">
+                        <h4 class="font-bold uppercase tracking-widest text-[11px] mb-6 text-black border-b border-zinc-200 pb-2">Especificações Especiais</h4>
+                        <form id="waForm" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div><label class="block text-[10px] uppercase font-bold tracking-widest text-zinc-400 mb-2">Nome Completo</label><input type="text" id="waName" required class="w-full border-b border-black/20 pb-2 bg-transparent"></div>
+                                <div><label class="block text-[10px] uppercase font-bold tracking-widest text-zinc-400 mb-2">Telefone</label><input type="text" id="waPhone" required class="w-full border-b border-black/20 pb-2 bg-transparent"></div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div><label class="block text-[10px] uppercase font-bold tracking-widest text-zinc-400 mb-2">Sua Altura</label><input type="text" id="waHeight" placeholder="ex: 1.75m" class="w-full border-b border-black/20 pb-2 bg-transparent"></div>
+                                <div><label class="block text-[10px] uppercase font-bold tracking-widest text-zinc-400 mb-2">Seu Peso</label><input type="text" id="waWeight" placeholder="ex: 75kg" class="w-full border-b border-black/20 pb-2 bg-transparent"></div>
+                                <div><label class="block text-[10px] uppercase font-bold tracking-widest text-zinc-400 mb-2">Seu Nível</label><input type="text" id="waLevel" placeholder="Iniciante, Av..." class="w-full border-b border-black/20 pb-2 bg-transparent"></div>
+                            </div>
+                            <div>
+                                 <label class="block text-[10px] uppercase font-bold tracking-widest text-zinc-400 mb-2">Observações (Opcional)</label>
+                                 <textarea id="waNotes" rows="2" placeholder="Descreva os copinhos (FCS, Futures), reforços, tipo de onda onde surfa..." class="w-full border-b border-black/20 pb-2 bg-transparent"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-green-600 text-white font-bold uppercase tracking-widest text-[11px] py-4 hover:bg-green-700 transition-colors cursor-pointer mt-4 shadow-sm">
+                                Enviar Ficha de Configuração 📱
+                            </button>
+                        </form>
+                    </div>
+                </div>
+           `;
+
+           // API Genérica de Disparo WhatsApp URI (Substitui backend)
+           function openWhatsAppURL(draftText) {
+               const safeUrl = `https://wa.me/5548991663544?text=${encodeURIComponent(draftText)}`;
+               window.open(safeUrl, '_blank');
+           }
+
+           // Ação 1: Modelo Padrão (Sem Formulário!) (Anexado a Global View)
+           window.dispatchStandardWhatsapp = () => {
+               const draft = `Olá, quero encomendar o modelo ${prancha.name.toUpperCase()}.
+
+Tipo: Padrão (Manter dimensões e configurações de prateleira baseadas no modelo Oficial)
+
+Aguardando retorno para fechar pagamento!`;
+               openWhatsAppURL(draft);
+           };
+
+           // Ação 2: Sob Medida Toggle (Abre form e escuta o Submit nativo)
+           window.toggleFormCustom = () => {
+               const wrapper = document.getElementById('customOrderFormWrapper');
+               const btn = document.getElementById('btnCustomToggle');
+               
+               if(wrapper.classList.contains('hidden')) {
+                   wrapper.classList.remove('hidden');
+                   // Garante a transição de fade tailwind apos o display none
+                   setTimeout(() => wrapper.classList.remove('opacity-0'), 100);
+                   btn.classList.add('bg-zinc-100');
+               } else {
+                   wrapper.classList.add('opacity-0');
+                   setTimeout(() => wrapper.classList.add('hidden'), 500);
+                   btn.classList.remove('bg-zinc-100');
+               }
+           };
+
+           // Interceptador Oficial do submit Formulário JS "Sob Medida"
+           document.getElementById('waForm').addEventListener('submit', (e) => {
+               e.preventDefault();
+               const nm = document.getElementById('waName').value || '...';
+               const ph = document.getElementById('waPhone').value || '...';
+               const ht = document.getElementById('waHeight').value || 'Não inf.';
+               const wt = document.getElementById('waWeight').value || 'Não inf.';
+               const lv = document.getElementById('waLevel').value || 'Não inf.';
+               const nt = document.getElementById('waNotes').value;
+
+               const draftCustom = `Olá, quero encomendar o modelo ${prancha.name.toUpperCase()}.
+
+Tipo: Sob Medida
+Nome: ${nm}
+Telefone: ${ph}
+Altura: ${ht}
+Peso: ${wt}
+Nível: ${lv}
+Observações: ${nt ? nt : 'Nenhuma'}`;
+               
+               openWhatsAppURL(draftCustom);
+           });
+       });
+   </script>
+</body>
+</html>

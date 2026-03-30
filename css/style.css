@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body { 
+    font-family: 'Inter', sans-serif; 
+    background-color: #ffffff; 
+    color: #000000; 
+    overflow-x: hidden; 
+    scroll-behavior: smooth; 
+}
+
+/* Fallbacks quando a mídia não existir fisicamente */
+.fallback-bg { 
+    background-color: #111; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+    color: #555; 
+    font-size: 0.75rem; 
+    border: 1px solid #333; 
+}
+
+/* Customizações Reutilizáveis em todo o UI */
+input:focus, select:focus, textarea:focus { 
+    outline: none; 
+    border-color: #000 !important; 
+}
+
+.card-hover:hover img { 
+    transform: scale(1.05); 
+}

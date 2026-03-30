@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coleção | JP Surfboards</title>
+    <meta name="description" content="Catálogo completo de pranchas JP Surfboards.">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="selection:bg-black selection:text-white bg-zinc-50">
+
+    <header class="fixed w-full top-0 z-50 transition-all duration-300 group" id="mainHeader" data-theme="light">
+        <nav class="max-w-screen-2xl mx-auto px-6 py-6 flex justify-between items-center text-black">
+            <a href="index.html" class="flex items-center gap-4 text-2xl font-bold tracking-tighter uppercase whitespace-nowrap">
+                <img src="./assets/images/logo.png" alt="Logo" class="w-8 h-8" onerror="this.style.display='none'">
+                <span>JP Surfboards</span>
+            </a>
+            <div class="hidden md:flex gap-8 text-xs font-semibold tracking-widest uppercase">
+                <a href="index.html" class="hover:opacity-50 transition-opacity">Home</a>
+                <a href="modelos.html" class="opacity-50 border-b border-black pb-1">Coleção</a>
+            </div>
+            <button class="md:hidden text-2xl">☰</button>
+        </nav>
+    </header>
+
+    <div class="pt-40 pb-32 px-6 max-w-screen-2xl mx-auto min-h-screen">
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tighter uppercase mb-4 text-center">Coleção Oficial</h1>
+        <p class="text-zinc-500 font-light text-xl tracking-wide text-center mb-16">Explore nossos shapes base.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="modelsGridPage"></div>
+    </div>
+
+    <!-- Módulo Central -->
+    <script src="./js/main.js"></script>
+    <!-- Mapeamento usando o mesmíssimo Card modular da Home -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+             document.getElementById("modelsGridPage").innerHTML = productsLocalDB.map(p => renderProductCard(p)).join('');
+        });
+    </script>
+</body>
+</html>
