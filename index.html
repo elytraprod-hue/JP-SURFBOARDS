@@ -14,8 +14,9 @@
 
     <header class="fixed w-full top-0 z-50 bg-transparent text-white mix-blend-difference hover:bg-black/90 hover:mix-blend-normal transition-all duration-300 group" id="mainHeader">
         <nav class="max-w-screen-2xl mx-auto px-6 py-6 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-4 text-2xl font-bold tracking-tighter uppercase whitespace-nowrap">
-                <img src="./assets/images/logo.png" alt="Logo" class="w-8 h-8 invert group-hover:invert-0 filter transition-all hidden" onerror="this.style.display='none'">
+            <!-- EDITADO: Logo alinhada horizontalmente com o nome de exibição, ajustado para as novas rotas -->
+            <a href="index.html" class="flex items-center gap-3 text-xl md:text-2xl font-bold tracking-tighter uppercase whitespace-nowrap">
+                <img src="./assets/images/logo/logo.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10 object-contain invert group-hover:invert-0 filter transition-all hidden" onerror="this.style.display='none'">
                 <span>JP Surfboards</span>
             </a>
             <div class="hidden md:flex gap-8 text-xs font-semibold tracking-widest uppercase">
@@ -60,7 +61,8 @@
     <section class="bg-black text-white py-24 md:py-32 px-6">
         <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
             <div class="w-full md:w-5/12 aspect-[4/5] bg-zinc-900 flex items-center justify-center overflow-hidden relative group border border-zinc-800 rounded-sm">
-                <img src="./assets/images/shaper-johnny.jpg" loading="lazy" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 transition-opacity duration-500" onerror="this.src='./assets/images/logo.png'; this.classList.remove('object-cover'); this.classList.add('object-contain', 'p-8', 'opacity-50');">
+                <!-- EDITADO: Imagem do Shaper (OShaper.jpg) posicionada e responsiva -->
+                <img src="./assets/images/sobre/OShaper.jpg" loading="lazy" class="w-full h-full object-cover object-top grayscale opacity-80 group-hover:opacity-100 transition-opacity duration-500" onerror="this.src='./assets/images/logo/logo.png'; this.classList.remove('object-cover'); this.classList.add('object-contain', 'p-8', 'opacity-50');">
             </div>
             <div class="w-full md:w-7/12 space-y-6 md:space-y-8">
                 <h2 class="text-4xl md:text-6xl font-bold tracking-tighter uppercase leading-none">O Shaper</h2>
