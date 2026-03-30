@@ -57,7 +57,7 @@
                         src="${prancha.modelImage}" 
                         alt="Galeria do modelo ${prancha.name}" 
                         class="w-full h-full object-cover grayscale-0 group-hover:scale-[1.03] transition duration-700" 
-                        onerror="this.src='./assets/images/placeholder.jpg'"
+                        onerror="this.src='./assets/images/logo.png'; this.classList.remove('object-cover'); this.classList.add('object-contain', 'p-8', 'opacity-30');"
                     >
                 </div>
            `;
