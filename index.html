@@ -27,44 +27,44 @@
     </header>
 
     <section class="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-black text-white">
-        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-70 z-10 pointer-events-none grayscale brightness-75 bg-zinc-900">
-            <source src="./assets/videos/BG%20Home%20page.mkv" type="video/webm">
-            <source src="./assets/videos/BG%20Home%20page.mkv" type="video/mp4">    
+        <video autoplay loop muted playsinline poster="./assets/images/models/black-buffalo-home.jpg" class="absolute inset-0 w-full h-full object-cover opacity-70 z-10 pointer-events-none grayscale brightness-75 bg-zinc-900 transition-opacity duration-1000">
+            <source src="./assets/videos/bg-home.mov" type="video/mp4">
+            <source src="./assets/videos/bg-home.mov" type="video/quicktime">
         </video>
         
-        <div class="z-20 text-center px-4 w-full mt-24 relative" id="hero-content">
-            <h1 class="text-7xl md:text-[11rem] font-bold tracking-tighter uppercase mb-4 leading-[0.80] opacity-0 translate-y-[100px]">
+        <div class="z-20 text-center px-4 w-full mt-24 relative max-w-5xl mx-auto" id="hero-content">
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase mb-6 leading-none opacity-0 translate-y-[50px]">
                 It comes<br>in waves
             </h1>
-            <p class="text-xl font-light mb-16 tracking-widest opacity-0 uppercase drop-shadow-md">Shape by Johnny.</p>
-            <a href="modelos.html" class="opacity-0 bg-white inline-block text-black px-12 py-5 font-bold uppercase tracking-widest text-xs hover:bg-zinc-200 transition-colors border border-transparent cursor-pointer">
+            <p class="text-lg md:text-xl font-light mb-12 tracking-[0.2em] opacity-0 uppercase drop-shadow-md text-zinc-300">Shape by Johnny.</p>
+            <a href="modelos.html" class="opacity-0 bg-white inline-block text-black px-10 py-4 font-bold uppercase tracking-widest text-xs hover:bg-zinc-200 transition-colors cursor-pointer rounded-sm">
                 Explorar Coleção
             </a>
         </div>
     </section>
 
     <!-- Partial Coleção Modulada via main.js card builder -->
-    <section id="modelos" class="py-32 px-6 max-w-screen-2xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 px-4">
-            <div>
-                <h2 class="text-5xl md:text-7xl font-bold tracking-tighter uppercase mb-2">Vitrine</h2>
-                <p class="text-zinc-500 font-light text-xl tracking-wide">Os nossos clássicos testados ao limite.</p>
+    <section id="modelos" class="py-24 md:py-32 px-6 max-w-screen-2xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12 px-2 md:px-4">
+            <div class="max-w-xl">
+                <h2 class="text-4xl md:text-6xl font-bold tracking-tighter uppercase mb-3">Vitrine</h2>
+                <p class="text-zinc-500 font-light text-lg md:text-xl tracking-wide leading-relaxed">Os nossos clássicos testados ao limite.</p>
             </div>
-            <a href="modelos.html" class="hidden md:block uppercase tracking-widest text-xs font-bold border-b border-black pb-1 hover:opacity-50 transition mt-6 md:mt-0">Ver Catálogo Completo</a>
+            <a href="modelos.html" class="uppercase tracking-widest text-[10px] md:text-xs font-bold border-b border-black pb-1 hover:opacity-50 transition mt-8 md:mt-0 inline-block">Ver Catálogo Completo</a>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4" id="productsGrid"></div>
     </section>
 
     <!-- Banner O Shaper Fixo -->
-    <section class="bg-black text-white py-32 px-6">
-        <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            <div class="w-full md:w-1/2 aspect-[4/5] bg-zinc-900 flex items-center justify-center overflow-hidden relative group border border-zinc-800">
-                <img src="./assets/images/shaper-johnny.jpg" loading="lazy" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 transition-opacity duration-500" onerror="this.src='./assets/images/placeholder.jpg'">
+    <section class="bg-black text-white py-24 md:py-32 px-6">
+        <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
+            <div class="w-full md:w-5/12 aspect-[4/5] bg-zinc-900 flex items-center justify-center overflow-hidden relative group border border-zinc-800 rounded-sm">
+                <img src="./assets/images/shaper-johnny.jpg" loading="lazy" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 transition-opacity duration-500" onerror="this.src='./assets/images/logo.png'; this.classList.remove('object-cover'); this.classList.add('object-contain', 'p-8', 'opacity-50');">
             </div>
-            <div class="w-full md:w-1/2 space-y-8">
-                <h2 class="text-5xl md:text-7xl font-bold tracking-tighter uppercase leading-[0.9]">O Shaper</h2>
-                <p class="text-xl font-light leading-relaxed opacity-80 text-zinc-400">Modelos meticulosamente concebidos para alta performance e prazer nas ondas, enraizados no Rio Tavares.</p>
+            <div class="w-full md:w-7/12 space-y-6 md:space-y-8">
+                <h2 class="text-4xl md:text-6xl font-bold tracking-tighter uppercase leading-none">O Shaper</h2>
+                <p class="text-lg md:text-xl font-light leading-relaxed opacity-80 text-zinc-300 max-w-lg">Modelos meticulosamente concebidos para alta performance e prazer nas ondas, enraizados no Rio Tavares.</p>
             </div>
         </div>
     </section>
