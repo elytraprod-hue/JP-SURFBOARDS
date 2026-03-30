@@ -13,8 +13,9 @@
     <!-- Header (Light Theme) -->
     <header class="fixed w-full top-0 z-50 transition-all duration-300 group" id="mainHeader" data-theme="light">
         <nav class="max-w-screen-2xl mx-auto px-6 py-6 flex justify-between items-center text-black">
-            <a href="index.html" class="flex items-center gap-4 text-2xl font-bold tracking-tighter uppercase whitespace-nowrap">
-                <img src="./assets/images/logo.png" alt="Logo" class="w-8 h-8" onerror="this.style.display='none'">
+            <!-- EDITADO: Logo e título arranjados horizontalmente com o novo caminho da logo -->
+            <a href="index.html" class="flex items-center gap-3 text-xl md:text-2xl font-bold tracking-tighter uppercase whitespace-nowrap">
+                <img src="./assets/images/logo/logo.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10 object-contain" onerror="this.style.display='none'">
                 <span>JP Surfboards</span>
             </a>
             <div class="hidden md:flex gap-8 text-xs font-semibold tracking-widest uppercase">
@@ -57,7 +58,7 @@
                         src="${prancha.modelImage}" 
                         alt="Galeria do modelo ${prancha.name}" 
                         class="w-full h-full object-cover grayscale-0 group-hover:scale-[1.03] transition duration-700" 
-                        onerror="this.src='./assets/images/logo.png'; this.classList.remove('object-cover'); this.classList.add('object-contain', 'p-8', 'opacity-30');"
+                        onerror="this.src='./assets/images/logo/logo.png'; this.classList.remove('object-cover'); this.classList.add('object-contain', 'p-8', 'opacity-30');"
                     >
                 </div>
            `;
